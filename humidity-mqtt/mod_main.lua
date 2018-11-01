@@ -14,7 +14,11 @@ local function mqtt_publish()
 	local radc = adc.read(0)
 	local v = 2.0*radc/666.0
 	local h = v*50.0/1.650
-	--print("adc: " .. radc .. ", " .. v .. "v" .. ", " .. h .."h")
+
+	--print( mod_conf.MQTT.DEVPATH .. "/adc: " .. radc)
+	--print( mod_conf.MQTT.DEVPATH .. "/adc/volt: " .. v)
+	--print( mod_conf.MQTT.DEVPATH .. "/adc/humidity: " .. h)
+
 	m:publish( mod_conf.MQTT.DEVPATH .. "/adc", radc ,0,0)
 	m:publish( mod_conf.MQTT.DEVPATH .. "/adc/volt", v ,0,0)
 	m:publish( mod_conf.MQTT.DEVPATH .. "/adc/humidity", h ,0,0)
@@ -30,14 +34,14 @@ local function mqtt_connect()
 		node.restart()
 	end
 	
-	tmr.alarm(6, 20000, 0, function()
+	tmr.alarm(6, 20000, tmr.ALARM_SINGLE, function()
 		print("MQTT connection timeout!")
 		mqtt_connect()
 	end)
 	
 	m:connect(mod_conf.MQTT.HOST, mod_conf.MQTT.PORT, 0, function(conn)
 	 	tmr.stop(6)
-		tmr.alarm(6, 10000, 1, mqtt_publish)
+		tmr.alarm(6, 10000, tmr.ALARM_AUTO, mqtt_publish)
 		print("Connected to MQTT broker!")
 	end)	
 end

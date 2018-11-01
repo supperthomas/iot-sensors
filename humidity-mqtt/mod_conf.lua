@@ -3,8 +3,10 @@
 local M = {}
 
 M.WIFI = { 
-	SSID = "StationName", 
-	PASSWORD = "Pass" 
+	ssid = "NetworkName", 
+	pwd = "Password",
+	save = false,
+	auto = true
 }
 
 M.MQTT = {
@@ -14,7 +16,6 @@ M.MQTT = {
 	ID = node.chipid(),
 	ENDPOINT = "/NodeMCU/",
 	DEVPATH = "/NodeMCU/" .. node.chipid()
-	
 }
 
 return M

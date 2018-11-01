@@ -8,6 +8,7 @@ end
 
 function stop()
     tmr.stop(0)
+    tmr.stop(6)
 end
 
 print("humidity-mqtt")
