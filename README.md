@@ -1,4 +1,4 @@
-# IoT scripts for ESP8266 flashed with NodeMCU
+# IoT NodeMCU scripts for ESP8266
 
 ## Prepare ESP8266
 Use custom build of NodeMCU (https://nodemcu-build.com).
