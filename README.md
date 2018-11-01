@@ -11,12 +11,21 @@ Example of flashing command for  ESP8266 ESP-12 (>=4 MByte modules):
 esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-float.bin 
 ```
 
+## Config
+
+Each subdirectory contains self-sufficient set of scripts which should be uploaded to device.
+
+- humidity-mqtt
+- ping-mqtt
+
 ## Upload scripts
 
 For uploading files **nodemcu-tool** can be used https://github.com/AndiDittrich/NodeMCU-Tool
 
 List devices:
+```
 $ nodemcu-tool devices
+```
 
 Upload file:
 ```
@@ -33,7 +42,3 @@ List files:
 $ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 fsinfo
 ```
 
-Break timer loop:
-```
-$ paste in terminal tmr.stop(0)
-```
