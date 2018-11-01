@@ -1,4 +1,4 @@
-# IoT scripts for ESP8266 flashed with NodeMCU.
+# IoT scripts for ESP8266 flashed with NodeMCU
 
 ## Prepare ESP8266
 Use custom build of NodeMCU https://nodemcu-build.com
@@ -6,7 +6,7 @@ Use custom build of NodeMCU https://nodemcu-build.com
 Enable modules: adc ds18b20 file gpio http mqtt net node ow pwm tmr uart wifi.
 Flash float version of firmware https://nodemcu.readthedocs.io/en/latest/en/flash
 
-Example flashing command for  ESP8266 ESP-12 (>=4 MByte modules):
+Example of flashing command for  ESP8266 ESP-12 (>=4 MByte modules):
 ```
 esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-float.bin 
 ```
