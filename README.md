@@ -1,11 +1,11 @@
 # IoT scripts for ESP8266 flashed with NodeMCU
 
 ## Prepare ESP8266
-Use custom build of NodeMCU https://nodemcu-build.com
+Use custom build of NodeMCU (https://nodemcu-build.com).
 
 Enable modules: adc ds18b20 file gpio http mqtt net node ow pwm tmr uart wifi.
 
-Flash float version of firmware https://nodemcu.readthedocs.io/en/latest/en/flash
+Flash float version of firmware (https://nodemcu.readthedocs.io/en/latest/en/flash).
 
 Example of flashing command for  ESP8266 ESP-12 (>=4 MByte modules):
 ```
@@ -24,7 +24,7 @@ Edit **mod_conf.lua** and setup network.
 
 ## Upload scripts
 
-For uploading files **nodemcu-tool** can be used https://github.com/AndiDittrich/NodeMCU-Tool
+For uploading **nodemcu-tool** can be used (https://github.com/AndiDittrich/NodeMCU-Tool).
 
 List devices:
 ```
