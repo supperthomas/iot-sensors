@@ -31,14 +31,9 @@ List devices:
 $ nodemcu-tool devices
 ```
 
-Upload file:
+Upload files:
 ```
 $ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 upload *.lua
-```
-
-Terminal:
-```
-$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 terminal
 ```
 
 List files:
@@ -46,3 +41,31 @@ List files:
 $ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 fsinfo
 ```
 
+## Running scripts
+
+Scripts will be executed automatically after restart.
+
+Connect terminal to display output:
+
+```
+$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 terminal
+
+[terminal]    ~ Starting Terminal Mode - press ctrl+c to exit 
+
+NodeMCU 0.9.6 build 20150704  powered by Lua 5.1.4
+humidity-mqtt
+starting in 5s, type stop() to break...
+> Trying connect to krypta13:
+.
+.
+IP Address: 	192.168.1.236	
+Netmask: 	255.255.255.0	
+Gateway: 	192.168.1.1
+Connecting to MQTT broker 192.168.1.2:1883 as 16397639:
+Connected to MQTT broker!
+```
+
+To interrupt script type in terminal:
+```
+tmr(0).stop()
+```
