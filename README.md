@@ -15,8 +15,11 @@ esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-fl
 
 Each subdirectory contains self-sufficient set of scripts which should be uploaded to device.
 
-- humidity-mqtt
-- ping-mqtt
+1. humidity-mqtt: periodically read value from humidity sensor (SY-HS-200) and publish it to mqtt message broker.
+2. ping-mqtt: periodically publish (ping) to mqtt message broker.
+
+Edit **mod_conf.lua** and setup network.
+
 
 ## Upload scripts
 
@@ -29,7 +32,7 @@ $ nodemcu-tool devices
 
 Upload file:
 ```
-$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 upload init.lua
+$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 upload *.lua
 ```
 
 Terminal:
