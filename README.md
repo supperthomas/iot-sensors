@@ -4,6 +4,7 @@
 Use custom build of NodeMCU https://nodemcu-build.com
 
 Enable modules: adc ds18b20 file gpio http mqtt net node ow pwm tmr uart wifi.
+
 Flash float version of firmware https://nodemcu.readthedocs.io/en/latest/en/flash
 
 Example of flashing command for  ESP8266 ESP-12 (>=4 MByte modules):
