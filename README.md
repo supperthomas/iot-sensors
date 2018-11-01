@@ -64,6 +64,7 @@ NodeMCU custom build by frightanic.com
         modules: adc,ds18b20,file,gpio,http,mqtt,net,node,ow,pwm,tmr,uart,wifi,tls
  build created on 2018-11-01 13:06
  powered by Lua 5.1.4 on SDK 2.2.1(6ab97e9)
+
 humidity-mqtt
 starting in 5s, type stop() to break...
 > Trying connect to krypta13:
@@ -78,6 +79,7 @@ Connecting to MQTT broker 192.168.1.2:1883 as 13974697:
 Connected to MQTT broker!
 ```
 
+Reupload files only when script is not running.
 To stop script type in terminal:
 ```
 stop()
