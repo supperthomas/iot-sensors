@@ -57,20 +57,28 @@ $ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 te
 
 [terminal]    ~ Starting Terminal Mode - press ctrl+c to exit 
 
-NodeMCU 0.9.6 build 20150704  powered by Lua 5.1.4
+NodeMCU custom build by frightanic.com
+        branch: master
+        commit: c708828bbe853764b9de58fb8113a70f5a24002d
+        SSL: true
+        modules: adc,ds18b20,file,gpio,http,mqtt,net,node,ow,pwm,tmr,uart,wifi,tls
+ build created on 2018-11-01 13:06
+ powered by Lua 5.1.4 on SDK 2.2.1(6ab97e9)
 humidity-mqtt
 starting in 5s, type stop() to break...
 > Trying connect to krypta13:
 .
 .
-IP Address: 	192.168.1.236	
-Netmask: 	255.255.255.0	
-Gateway: 	192.168.1.1
-Connecting to MQTT broker 192.168.1.2:1883 as 16397639:
+.
+.
+IP Address:     192.168.1.134
+Netmask:        255.255.255.0
+Gateway:        192.168.1.1
+Connecting to MQTT broker 192.168.1.2:1883 as 13974697:
 Connected to MQTT broker!
 ```
 
-To interrupt script type in terminal:
+To stop script type in terminal:
 ```
-tmr(0).stop()
+stop()
 ```
