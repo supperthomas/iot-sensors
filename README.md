@@ -33,10 +33,15 @@ $ nodemcu-tool devices
 
 Upload files:
 ```
-$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 upload *.lua
+$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 9600 upload *.lua
 ```
 
 List files:
+```
+$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 fsinfo
+```
+
+Sometimes it is required to explicitly set baud rate in each command:
 ```
 $ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 fsinfo
 ```
