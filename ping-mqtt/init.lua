@@ -21,7 +21,7 @@ function stop()
     tmr.stop(6)
 end
 
-print("humidity-mqtt")
+print("ping-mqtt")
 print("starting in 5s, type stop() to break...")
 
 tmr.alarm(0, 5000, tmr.ALARM_SINGLE, run)
