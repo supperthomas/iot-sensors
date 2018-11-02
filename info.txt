@@ -1,9 +1,0 @@
->>> Terminal
-nodemcu-tool -p /dev/tty.SLAB_USBtoUART --connection-delay 1000 --baud 9600 terminal
-
->>> List files
-nodemcu-tool -p /dev/tty.SLAB_USBtoUART --connection-delay 1000 --baud 9600 fsinfo
-
->>> Break timer loop:
-paste in terminal tmr.stop(0)
-
