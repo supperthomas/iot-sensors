@@ -1,4 +1,4 @@
-# IoT Sensors for NodeMCU (on ESP8266)
+# IoT Sensors for NodeMCU / ESP8266
 
 ## Prepare ESP8266
 Use custom build of NodeMCU (https://nodemcu-build.com).
