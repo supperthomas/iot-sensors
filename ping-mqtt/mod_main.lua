@@ -4,8 +4,8 @@ local M = {}
 local m = nil
 
 local function mqtt_publish()
-	print(mod_conf.MQTT.DEVPATH .. "/ping" .. " | " .. "Hello I'm ESP8966 | time = " .. tmr.time())
-	m:publish( mod_conf.MQTT.DEVPATH .. "/ping", "Hello I'm ESP8966 id=" .. mod_conf.MQTT.ID .. " | time = " .. tmr.time() ,0,0)
+	print(mod_conf.MQTT.DEVPATH .. "/ping" .. " | " .. "Hello I'm ESP8266 | time = " .. tmr.time())
+	m:publish( mod_conf.MQTT.DEVPATH .. "/ping", "Hello I'm ESP8266 id=" .. mod_conf.MQTT.ID .. " | time = " .. tmr.time() ,0,0)
 end
 
 local function mqtt_connect()
