@@ -3,7 +3,7 @@
 ## Prepare ESP8266
 Use custom build of NodeMCU (https://nodemcu-build.com).
 
-Enable modules: adc ds18b20 file gpio http mqtt net node ow pwm tmr uart wifi.
+Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi.
 
 Flash float version of firmware (https://nodemcu.readthedocs.io/en/latest/en/flash).
 
@@ -33,7 +33,7 @@ $ nodemcu-tool devices
 
 Upload files:
 ```
-$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 9600 upload *.lua
+$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 upload *.lua
 ```
 
 List files:
@@ -53,7 +53,7 @@ Scripts will be executed automatically after restart.
 Connect terminal to display output:
 
 ```
-$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 terminal
+$ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 terminal
 
 [terminal]    ~ Starting Terminal Mode - press ctrl+c to exit 
 
