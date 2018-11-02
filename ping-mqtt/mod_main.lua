@@ -3,13 +3,6 @@
 local M = {}
 local m = nil
 
-local function subscribe()
-	m:subscribe( mod_conf.MQTT.DEVPATH .. "/GPIO0/write",0,function(conn)
-		print("Subscribed to " .. mod_conf.MQTT.DEVPATH .. "/GPIO0/write")
-    end)
-
-end
-
 local function mqtt_publish()
 	print(mod_conf.MQTT.DEVPATH .. "/ping" .. " | " .. "Hello I'm ESP8966 | time = " .. tmr.time())
 	m:publish( mod_conf.MQTT.DEVPATH .. "/ping", "Hello I'm ESP8966 id=" .. mod_conf.MQTT.ID .. " | time = " .. tmr.time() ,0,0)
@@ -24,15 +17,15 @@ local function mqtt_connect()
 		print("Network connection broken, restarting...")
 		node.restart()
 	end
-
-	tmr.alarm(6, 20000, 0, function()
+	
+	tmr.alarm(6, 20000, tmr.ALARM_SINGLE, function()
 		print("MQTT connection timeout!")
 		mqtt_connect()
 	end)
 	
 	m:connect(mod_conf.MQTT.HOST, mod_conf.MQTT.PORT, 0, function(conn)
 	 	tmr.stop(6)
-		tmr.alarm(6, 10000, 1, mqtt_publish)
+		tmr.alarm(6, 10000, tmr.ALARM_AUTO, mqtt_publish)
 		print("Connected to MQTT broker!")
 	end)	
 end
