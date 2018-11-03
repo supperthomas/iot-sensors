@@ -1,5 +1,13 @@
 # IoT Sensors for NodeMCU / ESP8266
 
+Each subdirectory of repo represent independent feature(s):
+1. **humidity-mqtt**: periodically read value from humidity sensor (SY-HS-200) and publish it to mqtt message broker.
+2. **ping-mqtt**: periodically publish (ping) to mqtt message broker.
+
+Scripts in each subdirectory are sef-sufficient. To make thing working:
+1. Edit **mod_conf.lua** and setup network
+2. Upload all files from particular directory to NodeMCU device.
+
 ## Prepare ESP8266
 Use custom build of NodeMCU (https://nodemcu-build.com).
 
@@ -11,16 +19,6 @@ Example of flashing command for  ESP8266 ESP-12 (>=4 MByte modules):
 ```
 esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-float.bin 
 ```
-
-## Config
-
-Each subdirectory contains self-sufficient set of scripts which should be uploaded to device.
-
-1. humidity-mqtt: periodically read value from humidity sensor (SY-HS-200) and publish it to mqtt message broker.
-2. ping-mqtt: periodically publish (ping) to mqtt message broker.
-
-Edit **mod_conf.lua** and setup network.
-
 
 ## Upload scripts
 
