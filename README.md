@@ -12,9 +12,9 @@ Scripts in each subdirectory are sef-sufficient. To make thing working:
 ## Prepare ESP8266
 Use custom [NodeMCU build](https://nodemcu-build.com).
 
-Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
+* Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
+* Flash float version of firmware. 
 
-Flash float version of firmware. 
 Example of using esptool for flashing ESP8266 ESP-12 (>=4 MByte modules):
 ```
 esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-float.bin 
