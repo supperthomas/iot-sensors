@@ -1,8 +1,6 @@
 local M = {}
-
-local ds18b20 = require("ds18b20")
+local t = nil
 local pin = 3 -- gpio0 = 3, gpio2 = 4
-local mqttHnd = nil
 
 local function readout(temp)
     if t.sens then
@@ -16,13 +14,14 @@ local function readout(temp)
     end
 end
 
-function M.initialize(mqttHandler,owPin)
-    mqttHnd = mqttHandler
+function M.initialize(ds18b20lv, owPin)
+    t = ds18b20lv
     pin = owPin
 end
 
 function M.publishTemp()
-    ds18b20:read_temp(readout, pin, t.C)
+    print("=== PUBLISH DS18B20 TEMPERATURE EVENT ===")
+    t:read_temp(readout, pin, t.C)
 end
 
 return M
