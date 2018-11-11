@@ -12,7 +12,9 @@ local function readout(temp)
       end
     end
     for addr, tmp in pairs(temp) do
-      print(string.format("Sensor %s: %s C", ('%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X'):format(addr:byte(1,8)), tmp))
+      local addrStr = ('%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X'):format(addr:byte(1,8))
+      print(string.format("Sensor %s: %s C", addrStr, tmp))
+      mqttHnd.publish("ds18b20/" .. addrStr, tmp, 0, 0)
     end
 end
 
