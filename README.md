@@ -14,16 +14,17 @@ Use custom [NodeMCU build](https://nodemcu-build.com).
 
 Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
 
-Flash float version of firmware. For flashing instructions and tools refer to [NodeMCU documentation] (https://nodemcu.readthedocs.io/en/latest/en/flash).
-
+Flash float version of firmware. 
 Example of using esptool for flashing ESP8266 ESP-12 (>=4 MByte modules):
 ```
 esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-float.bin 
 ```
 
+For flashing detailed instructions and tools check [NodeMCU documentation](https://nodemcu.readthedocs.io/en/latest/en/flash).
+
 ## Upload scripts
 
-For uploading [**nodemcu-tool**](https://github.com/AndiDittrich/NodeMCU-Tool) can be used.
+For uploading [nodemcu-tool](https://github.com/AndiDittrich/NodeMCU-Tool) can be used.
 
 List devices:
 ```
