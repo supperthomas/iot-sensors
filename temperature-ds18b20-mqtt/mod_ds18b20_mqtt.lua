@@ -1,6 +1,8 @@
 local M = {}
 local t = nil
-local pin = 3 -- gpio0 = 3, gpio2 = 4
+local mqttHnd = nil
+local pin = nil
+local pubTimer = tmr.create()
 
 local function readout(temp)
     if t.sens then
@@ -14,14 +16,21 @@ local function readout(temp)
     end
 end
 
-function M.initialize(ds18b20lv, owPin)
-    t = ds18b20lv
-    pin = owPin
+local function publishTemp()
+  print("*** publish temperature event ***")
+  t:read_temp(readout, pin, t.C)
 end
 
-function M.publishTemp()
-    print("=== PUBLISH DS18B20 TEMPERATURE EVENT ===")
-    t:read_temp(readout, pin, t.C)
+function M.start(ds18b20lv, mqttHandler, conf)
+    t = ds18b20lv
+    mqttHnd = mqttHandler
+    pin = conf.PIN
+    pubTimer:alarm(conf.PUBDELAY, tmr.ALARM_AUTO, publishTemp)
+    publishTemp()
+end
+
+function M.stop()
+  pubTimer.unregister()
 end
 
 return M

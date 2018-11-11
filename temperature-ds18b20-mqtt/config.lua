@@ -18,7 +18,8 @@ M.MQTT = {
 	DEVPATH = "/NodeMCU/" .. node.chipid()
 }
 
-M.ONEWIRE = {
-	PIN = 3 -- gpio0 = 3, gpio2 = 4
+M.DS18B20 = {
+	PIN = 3, -- gpio0 = 3, gpio2 = 4
+	PUBDELAY = 10000
 }
 return M
