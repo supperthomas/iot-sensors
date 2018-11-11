@@ -20,7 +20,7 @@ Example of using esptool for flashing ESP8266 ESP-12 (>=4 MByte modules):
 esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-float.bin 
 ```
 
-For flashing detailed instructions and tools check [NodeMCU documentation](https://nodemcu.readthedocs.io/en/latest/en/flash).
+For detailed flashing instructions and tools check [NodeMCU documentation](https://nodemcu.readthedocs.io/en/latest/en/flash).
 
 ## Upload scripts
 
