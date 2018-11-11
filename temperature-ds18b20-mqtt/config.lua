@@ -20,6 +20,6 @@ M.MQTT = {
 
 M.DS18B20 = {
 	PIN = 3, -- gpio0 = 3, gpio2 = 4
-	PUBDELAY = 10000
+	PUBDELAY = 60000 --ms
 }
 return M
