@@ -15,7 +15,7 @@ local function setup()
 
     mqttHandler.onDisconnected(function()
         print("*** mqtt disconnected event ***")
-        pingTmr:unregister()
+        tempMqttHandler.stop()
     end)
 
     wifiHandler.onConnected(function()
