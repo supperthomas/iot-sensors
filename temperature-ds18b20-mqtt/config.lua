@@ -18,4 +18,7 @@ M.MQTT = {
 	DEVPATH = "/NodeMCU/" .. node.chipid()
 }
 
+M.ONEWIRE = {
+	PIN = 3 -- gpio0 = 3, gpio2 = 4
+}
 return M
