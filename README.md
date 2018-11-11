@@ -3,27 +3,27 @@
 Each subdirectory of repo represent independent feature(s):
 1. **humidity-mqtt**: periodically read value from humidity sensor SY-HS-200 and publish it to mqtt message broker.
 2. **ping-mqtt**: periodically publish (ping) to mqtt message broker.
-3. **temperature-ds18b20-mqtt**: periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker. Readings from thermometer are handled by DS18B20 lua module  https://github.com/nodemcu/nodemcu-firmware/tree/dev/lua_modules/ds18b20
+3. **temperature-ds18b20-mqtt**: periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker. Readings from thermometer are handled by [DS18B20 lua module](https://github.com/nodemcu/nodemcu-firmware/tree/dev/lua_modules/ds18b20)
 
 Scripts in each subdirectory are sef-sufficient. To make thing working:
 1. Edit **mod_conf.lua** and setup network
 2. Upload all files from particular directory to NodeMCU device.
 
 ## Prepare ESP8266
-Use custom build of NodeMCU (https://nodemcu-build.com).
+Use custom [NodeMCU build](https://nodemcu-build.com).
 
 Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
 
-Flash float version of firmware (https://nodemcu.readthedocs.io/en/latest/en/flash).
+Flash float version of firmware. For flashing instructions and tools refer to [NodeMCU documentation] (https://nodemcu.readthedocs.io/en/latest/en/flash).
 
-Example of flashing command for  ESP8266 ESP-12 (>=4 MByte modules):
+Example of using esptool for flashing ESP8266 ESP-12 (>=4 MByte modules):
 ```
 esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-float.bin 
 ```
 
 ## Upload scripts
 
-For uploading **nodemcu-tool** can be used (https://github.com/AndiDittrich/NodeMCU-Tool).
+For uploading [**nodemcu-tool**](https://github.com/AndiDittrich/NodeMCU-Tool) can be used.
 
 List devices:
 ```
