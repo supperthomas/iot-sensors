@@ -1,8 +1,9 @@
 # IoT Sensors for NodeMCU / ESP8266
 
 Each subdirectory of repo represent independent feature(s):
-1. **humidity-mqtt**: periodically read value from humidity sensor (SY-HS-200) and publish it to mqtt message broker.
+1. **humidity-mqtt**: periodically read value from humidity sensor SY-HS-200 and publish it to mqtt message broker.
 2. **ping-mqtt**: periodically publish (ping) to mqtt message broker.
+3. **temperature-ds18b20-mqtt**: periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker. Readings from thermometer are handled by DS18B20 lua module  https://github.com/nodemcu/nodemcu-firmware/tree/dev/lua_modules/ds18b20
 
 Scripts in each subdirectory are sef-sufficient. To make thing working:
 1. Edit **mod_conf.lua** and setup network
@@ -11,7 +12,7 @@ Scripts in each subdirectory are sef-sufficient. To make thing working:
 ## Prepare ESP8266
 Use custom build of NodeMCU (https://nodemcu-build.com).
 
-Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi.
+Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
 
 Flash float version of firmware (https://nodemcu.readthedocs.io/en/latest/en/flash).
 
@@ -59,7 +60,7 @@ NodeMCU custom build by frightanic.com
         branch: master
         commit: c708828bbe853764b9de58fb8113a70f5a24002d
         SSL: true
-        modules: adc,ds18b20,file,gpio,http,mqtt,net,node,ow,pwm,tmr,uart,wifi,tls
+        modules: adc,file,gpio,http,mqtt,net,node,ow,pwm,tmr,uart,wifi,tls
  build created on 2018-11-01 13:06
  powered by Lua 5.1.4 on SDK 2.2.1(6ab97e9)
 
