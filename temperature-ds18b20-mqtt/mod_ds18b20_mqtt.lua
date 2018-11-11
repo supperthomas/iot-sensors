@@ -11,8 +11,8 @@ local function readout(temp)
         print(string.format("  sensor #%d address: %s%s",  i, ('%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X'):format(s:byte(1,8)), s:byte(9) == 1 and " (parasite)" or ""))
       end
     end
-    for addr, temp in pairs(temp) do
-      print(string.format("Sensor %s: %s °C", ('%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X'):format(addr:byte(1,8)), temp))
+    for addr, tmp in pairs(temp) do
+      print(string.format("Sensor %s: %s C", ('%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X'):format(addr:byte(1,8)), tmp))
     end
 end
 
@@ -30,7 +30,7 @@ function M.start(ds18b20lv, mqttHandler, conf)
 end
 
 function M.stop()
-  pubTimer.unregister()
+  pubTimer:unregister()
 end
 
 return M
