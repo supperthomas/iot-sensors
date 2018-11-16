@@ -13,5 +13,9 @@ return(
 		ID = node.chipid(),
 		ENDPOINT = "/NodeMCU/",
 		DEVPATH = "/NodeMCU/" .. node.chipid()
+	},
+	PING = {
+		PUBDELAY = 10000,
+		PINGMSG = "Ping Test!!!"
 	}
 )
