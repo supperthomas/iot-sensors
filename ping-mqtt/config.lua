@@ -1,5 +1,5 @@
 -- conf module
-return(
+return({
 	WIFI = { 
 		ssid = "NetworkName", 
 		pwd = "Password",
@@ -18,4 +18,4 @@ return(
 		PUBDELAY = 10000,
 		PINGMSG = "Ping Test!"
 	}
-)
+})
