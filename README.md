@@ -6,7 +6,7 @@ Each subdirectory of repo represent independent feature(s):
 3. **temperature-ds18b20-mqtt**: periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker. Readings from thermometer are handled by [DS18B20 lua module](https://github.com/nodemcu/nodemcu-firmware/tree/dev/lua_modules/ds18b20)
 
 Scripts in each subdirectory are sef-sufficient. To make thing working:
-1. Edit **mod_conf.lua** and setup network
+1. Edit **config.lua** and setup network
 2. Upload all files from particular directory to NodeMCU device.
 
 ## Prepare ESP8266
