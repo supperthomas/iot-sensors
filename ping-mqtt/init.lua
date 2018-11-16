@@ -1,17 +1,40 @@
-mod_conf = require("config")
-mod_main = require("mod_main") 
-mod_net = require("mod_net")
+print("\n=== ping-mqtt ===")
 
-function run()
-    mod_net.connect(mod_main.start)
+local config = require("config")
+local wifiHandler = require("mod_wifi")
+local mqttHandler = require("mod_mqtt")
+local pingHandler = require("mod_ping_mqtt")
+
+local startTmr = tmr.create()
+
+local function setup()
+    mqttHandler.onConnected(function()
+        print("*** mqtt connected event ***")
+        pingHandler.start(mqttHandler, config.PING)
+    end)
+
+    mqttHandler.onDisconnected(function()
+        print("*** mqtt disconnected event ***")
+        pingHandler.stop()
+    end)
+
+    wifiHandler.onConnected(function()
+        print("*** wifi connected event ***")
+        mqttHandler.connect(config.MQTT)
+    end)
+end
+
+local function run()
+    setup()
+    wifiHandler.connect(config.WIFI)
 end
 
 function stop()
-    tmr.stop(0)
-    tmr.stop(6)
+    startTmr:stop()
+    wifiHandler.stop()
+    pingHandler.stop()
 end
 
-print("ping-mqtt")
-print("starting in 5s, type stop() to break...")
+print("\nstarting in 5s, type stop() to break...")
+startTmr:alarm(5000, tmr.ALARM_SINGLE, run)
 
-tmr.alarm(0, 5000, tmr.ALARM_SINGLE, run)
