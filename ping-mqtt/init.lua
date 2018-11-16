@@ -1,4 +1,4 @@
-mod_conf = require("mod_conf")
+mod_conf = require("config")
 mod_main = require("mod_main") 
 mod_net = require("mod_net")
 
