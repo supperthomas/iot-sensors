@@ -16,6 +16,6 @@ return(
 	},
 	PING = {
 		PUBDELAY = 10000,
-		PINGMSG = "Ping Test!!!"
+		PINGMSG = "Ping Test!"
 	}
 )

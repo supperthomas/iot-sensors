@@ -3,7 +3,7 @@ local mqttHnd = nil
 local pubTimer = tmr.create()
 local cfg = {
     PUBDELAY = 10000,
-    PINGMSG = "Ping Test!"
+    PINGMSG = "ping msg"
 }
 
 local function publishPing
