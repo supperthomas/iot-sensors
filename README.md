@@ -90,3 +90,4 @@ stop()
 
 ### temperature-ds18b20
 ![NodeMCU v1.0 DS18B20 Breadboard](doc/sch/nodemcuv1_ds18b20_bb.png)
+![NodeMCU v1.0 DS18B20 Schema](doc/sch/nodemcuv1_ds18b20_schem.png)
