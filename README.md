@@ -1,6 +1,6 @@
 # IoT Sensors for NodeMCU / ESP8266
 
-Each subdirectory of **/src** represent independent feature(s):
+Each subdirectory of **[/src](src)** represent independent feature(s):
 1. **humidity-syhs200-mqtt**: periodically read value from humidity sensor SY-HS-200 and publish it to mqtt message broker.
 2. **ping-mqtt**: periodically publish (ping) to mqtt message broker.
 3. **[temperature-ds18b20-mqtt](#temperature-ds18b20)**: periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker. Readings from thermometer are handled by [DS18B20 lua module](https://github.com/nodemcu/nodemcu-firmware/tree/dev/lua_modules/ds18b20)
