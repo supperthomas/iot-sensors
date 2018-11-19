@@ -1,27 +1,42 @@
-mod_conf = require("config")
-mod_main = require("mod_main") 
-mod_net = require("mod_net")
+print("\n=== humidity-syhs200-mqtt ===")
 
-function initADC()
-    if adc.force_init_mode(adc.INIT_ADC)
-    then
-        print("Initializing ADC, restarting...")
-        node.restart()
-        return -- don't bother continuing, the restart is scheduled
-    end
+local config = require("config")
+local wifiHandler = require("mod_wifi")
+local mqttHandler = require("mod_mqtt")
+local syhs200Handler = require("mod_syhs200_mqtt")
+
+local startTmr = tmr.create()
+
+local function setup()
+    syhs200Handler.initialize()
+    
+    mqttHandler.onConnected(function()
+        print("*** mqtt connected event ***")
+        syhs200Handler.start(mqttHandler, config.SYHS200)
+    end)
+
+    mqttHandler.onDisconnected(function()
+        print("*** mqtt disconnected event ***")
+        syhs200Handler.stop()
+    end)
+
+    wifiHandler.onConnected(function()
+        print("*** wifi connected event ***")
+        mqttHandler.connect(config.MQTT)
+    end)
 end
 
-function run()
-    initADC()
-    mod_net.connect(mod_main.start)
+local function run()
+    setup()
+    wifiHandler.connect(config.WIFI)
 end
 
 function stop()
-    tmr.stop(0)
-    tmr.stop(6)
+    startTmr:stop()
+    wifiHandler.stop()
+    syhs200Handler.stop()
 end
 
-print("humidity-mqtt")
-print("starting in 5s, type stop() to break...")
+print("\nstarting in 5s, type stop() to break...")
+startTmr:alarm(5000, tmr.ALARM_SINGLE, run)
 
-tmr.alarm(0, 5000, tmr.ALARM_SINGLE, run)
