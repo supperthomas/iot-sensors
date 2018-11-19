@@ -20,13 +20,13 @@ local function publishHumidity()
 	local v = 2.0*radc/666.0
 	local h = v*50.0/1.650
 
-    print("/adc: " .. radc)
-	print("/adc/volt: " .. v)
-	print("/adc/humidity: " .. h)
+    print("adc: " .. radc)
+	print("adc/volt: " .. v)
+	print("adc/humidity: " .. h)
     
-	mqttHnd.publish("/adc", radc ,0,0)
-	mqttHnd.publish("/adc/volt", v ,0,0)
-	mqttHnd.publish("/adc/humidity", h ,0,0)
+	mqttHnd.publish("adc", radc ,0,0)
+	mqttHnd.publish("adc/volt", v ,0,0)
+	mqttHnd.publish("adc/humidity", h ,0,0)
 end
 
 function M.initialize()
