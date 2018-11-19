@@ -85,3 +85,8 @@ To stop script type in terminal:
 ```
 stop()
 ```
+
+## Wiring
+
+### temperature-ds18b20-mqtt
+
