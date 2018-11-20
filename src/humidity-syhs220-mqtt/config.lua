@@ -14,7 +14,7 @@ return({
 		ENDPOINT = "/NodeMCU/",
 		DEVPATH = "/NodeMCU/" .. node.chipid()
 	},
-	SYHS200 = {
+	SYHS220 = {
 		PUBDELAY = 60000 --ms
 	}
 })

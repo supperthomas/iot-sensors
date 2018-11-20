@@ -14,7 +14,7 @@ local function initADC()
 end
 
 local function publishHumidity()
-    print("*** publish humidity syhs200 event ***")
+    print("*** publish humidity syhs220 event ***")
 
 	local radc = adc.read(0)
 	local v = 2.0*radc/666.0
