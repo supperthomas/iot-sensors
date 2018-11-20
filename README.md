@@ -1,16 +1,16 @@
 # IoT Sensors for NodeMCU / ESP8266
 
 Each subdirectory of **[/src](src)** represent independent feature(s):
-1. **humidity-syhs220-mqtt**: periodically read value from humidity sensor SY-HS-220 and publish it to mqtt message broker.
-2. **ping-mqtt**: periodically publish (ping) to mqtt message broker.
-3. **[temperature-ds18b20-mqtt](#temperature-ds18b20)**: periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker. Readings from thermometer are handled by [DS18B20 lua module](https://github.com/nodemcu/nodemcu-firmware/tree/dev/lua_modules/ds18b20)
+1. [humidity-syhs220-mqtt](src/humidity-syhs220-mqtt): periodically read value from humidity sensor SY-HS-220 and publish it to mqtt message broker.
+2. [ping-mqtt](src/ping-mqtt): periodically publish (ping) to mqtt message broker.
+3. [temperature-ds18b20-mqtt](src/temperature-ds18b20-mqtt): periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker.
 
 ## Setup
 Scripts in each subdirectory are sef-sufficient. To make thing working:
 1. Edit **config.lua** and setup network
 2. Upload all files from particular directory to NodeMCU device.
 
-### Prepare ESP8266
+## Prepare ESP8266
 Use custom [NodeMCU build](https://nodemcu-build.com).
 
 * Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
@@ -23,7 +23,7 @@ esptool.py --port /dev/tty.usbserial-1420 write_flash -fm dio 0x00000 nodemcu-fl
 
 For detailed flashing instructions and tools check [NodeMCU documentation](https://nodemcu.readthedocs.io/en/latest/en/flash).
 
-### Upload scripts
+## Upload scripts
 
 For uploading [nodemcu-tool](https://github.com/AndiDittrich/NodeMCU-Tool) can be used.
 
@@ -47,7 +47,7 @@ Sometimes it is required to explicitly set baud rate in each command:
 $ nodemcu-tool -p /dev/tty.usbserial-1420 --connection-delay 1000 --baud 9600 fsinfo
 ```
 
-### Running scripts
+## Running scripts
 
 Scripts will be executed automatically after restart.
 
@@ -85,9 +85,3 @@ To stop script type in terminal:
 ```
 stop()
 ```
-
-## Wiring
-
-### temperature-ds18b20
-![NodeMCU v1.0 DS18B20 Breadboard](doc/sch/nodemcuv1_ds18b20_bb.png)
-![NodeMCU v1.0 DS18B20 Schema](doc/sch/nodemcuv1_ds18b20_schem.png)
