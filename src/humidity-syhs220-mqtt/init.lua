@@ -1,4 +1,4 @@
-print("\n=== humidity-syhs200-mqtt ===")
+print("\n=== humidity-syhs220-mqtt ===")
 
 local config = require("config")
 local wifiHandler = require("mod_wifi")
