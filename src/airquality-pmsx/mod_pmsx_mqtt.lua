@@ -34,7 +34,9 @@ local function setupUart()
     uart.on("data", string.char(0x4d), readFromUart, 0)
 end
 
-
+function M.decodeFrame(frame)
+    return nil
+end
 
 function M.start(mqttHandler, sensorConfig)
     mqttHnd = mqttHandler
