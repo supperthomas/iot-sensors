@@ -31,9 +31,7 @@ end
 local function setupUart()
     uart.setup(0, 9600, 8, uart.PARITY_NONE, uart.STOPBITS_1, 0)
     uart.alt(1)
-    mqttHnd.publish("airquality/beforeuarton", 1, 0, 0)
     uart.on("data", string.char(0x4d), readFromUart, 0)
-    mqttHnd.publish("airquality/ready", 1, 0, 0)
 end
 
 
