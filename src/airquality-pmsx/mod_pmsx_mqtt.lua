@@ -4,6 +4,8 @@ local pubTimer = tmr.create()
 local cfg = {
     PUBDELAY = 10000
 }
+local publishNthFrame=100
+local frameCount=90
 
 local function publishAirQuality()
 	-- mqttHnd.publish("adc", radc ,0,0)
@@ -19,24 +21,31 @@ local function getFrameRawString(frame)
     return frameString
 end
 
+local function publishFrames(rawFrame, decodedFrame)
+    if decodedFrame then
+        mqttHnd.publish("airquality/rawframe", getFrameRawString(rawFrame), 0, 0)
+        mqttHnd.publish("airquality/json", M.convertToJson(decodedFrame), 0, 0)
+        mqttHnd.publish("airquality/env/factory/pm1", decodedFrame.env.factory.pm1, 0, 0)
+        mqttHnd.publish("airquality/env/factory/pm2_5", decodedFrame.env.factory.pm2_5, 0, 0)
+        mqttHnd.publish("airquality/env/factory/pm10", decodedFrame.env.factory.pm10, 0, 0)
+        mqttHnd.publish("airquality/env/atmospheric/pm1", decodedFrame.env.atmospheric.pm1, 0, 0)
+        mqttHnd.publish("airquality/env/atmospheric/pm2_5", decodedFrame.env.atmospheric.pm2_5, 0, 0)
+        mqttHnd.publish("airquality/env/atmospheric/pm10", decodedFrame.env.atmospheric.pm10, 0, 0)
+    else
+        mqttHnd.publish("airquality/error/rawframe", getFrameRawString(rawFrame), 0, 0)
+    end
+end
 
 function readFromUart(data)
+    frameCount = frameCount + 1
+    if frameCount < publishNthFrame then return end
+    frameCount = 1
+
     local len = data:len()
     if len >= 24 then    
         local frame = { data:byte(len-23,len) }
-        local df = M.decodeFrame(frame)
-        if df then
-            mqttHnd.publish("airquality/rawframe", getFrameRawString(frame), 0, 0)
-            mqttHnd.publish("airquality/json", M.convertToJson(df), 0, 0)
-            mqttHnd.publish("airquality/env/factory/pm1", df.env.factory.pm1, 0, 0)
-            mqttHnd.publish("airquality/env/factory/pm2_5", df.env.factory.pm2_5, 0, 0)
-            mqttHnd.publish("airquality/env/factory/pm10", df.env.factory.pm10, 0, 0)
-            mqttHnd.publish("airquality/env/atmospheric/pm1", df.env.atmospheric.pm1, 0, 0)
-            mqttHnd.publish("airquality/env/atmospheric/pm2_5", df.env.atmospheric.pm2_5, 0, 0)
-            mqttHnd.publish("airquality/env/atmospheric/pm10", df.env.atmospheric.pm10, 0, 0)
-        else
-            mqttHnd.publish("airquality/error/rawframe", getFrameRawString(frame), 0, 0)
-        end
+        local decodedFrame = M.decodeFrame(frame)
+        publishFrames(frame, decodedFrame)
     end
 end
 
