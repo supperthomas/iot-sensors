@@ -20,21 +20,22 @@ local function getFrameRawString(frame)
 end
 
 
-local function readFromUart(data)
+function readFromUart(data)
     local len = data:len()
     if len >= 24 then    
         local frame = { data:byte(len-23,len) }
         local df = M.decodeFrame(frame)
         if df then
+            mqttHnd.publish("airquality/rawframe", getFrameRawString(frame), 0, 0)
             mqttHnd.publish("airquality/json", M.convertToJson(df), 0, 0)
-            mqttHnd.publish("airquality/env/factory/pm1", df, 0, 0)
-            mqttHnd.publish("airquality/env/factory/pm2_5", df, 0, 0)
-            mqttHnd.publish("airquality/env/factory/pm10", df, 0, 0)
-            mqttHnd.publish("airquality/env/atmospheric/pm1", df, 0, 0)
-            mqttHnd.publish("airquality/env/atmospheric/pm2_5", df, 0, 0)
-            mqttHnd.publish("airquality/env/atmospheric/pm10", df, 0, 0)
+            mqttHnd.publish("airquality/env/factory/pm1", df.env.factory.pm1, 0, 0)
+            mqttHnd.publish("airquality/env/factory/pm2_5", df.env.factory.pm2_5, 0, 0)
+            mqttHnd.publish("airquality/env/factory/pm10", df.env.factory.pm10, 0, 0)
+            mqttHnd.publish("airquality/env/atmospheric/pm1", df.env.atmospheric.pm1, 0, 0)
+            mqttHnd.publish("airquality/env/atmospheric/pm2_5", df.env.atmospheric.pm2_5, 0, 0)
+            mqttHnd.publish("airquality/env/atmospheric/pm10", df.env.atmospheric.pm10, 0, 0)
         else
-            mqttHnd.publish("airquality/error", getFrameRawString(frame), 0, 0)
+            mqttHnd.publish("airquality/error/rawframe", getFrameRawString(frame), 0, 0)
         end
     end
 end
