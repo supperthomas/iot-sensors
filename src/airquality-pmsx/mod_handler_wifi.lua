@@ -17,13 +17,13 @@ function M.connect(wifiConfig)
 	tmr.delay(1000)
 	local it = 0
 	wifi.sta.config(wifiConfig)
-	print("Trying connect to " .. wifiConfig.ssid .. ":")
+	log.info("Trying connect to " .. wifiConfig.ssid .. ":")
 	conTmr:alarm(1000, tmr.ALARM_AUTO, function()   
 		it=it+1
 		ip, nm, gw=wifi.sta.getip()
 		if ip ~= nil then
 			conTmr:unregister()         
-			print("IP Address: ",ip,"\nNetmask: ",nm,"\nGateway: ",gw)         
+			log.info("IP Address: ",ip,"\nNetmask: ",nm,"\nGateway: ",gw)         
 			
 			if connectedCbk ~= nil then
 				connectedCbk();
@@ -31,10 +31,10 @@ function M.connect(wifiConfig)
 			return
 		end
 		if it >= 180 then
-			print("Unable connect to network, restarting...")
+			log.error("Unable connect to network, restarting...")
 			node.restart()
 		end
-		print(".")
+		log.debug("connecting...")
 	end )
 end
 

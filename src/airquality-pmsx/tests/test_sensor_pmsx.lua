@@ -62,7 +62,7 @@ local function printFrame(frame)
     print(outStr)
 end
 
-local sut = dofile("../mod_pmsx.lua")
+local sut = dofile("../mod_sensor_pmsx.lua")
 
 function test_Given_frame_When_notends_with_0x42_0x4D_then_return_nil()
     for i,f in ipairs(BAD_ENDING_FRAMES) do

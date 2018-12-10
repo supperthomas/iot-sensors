@@ -4,40 +4,6 @@ local onReadCbk = nil
 local publishNthFrame=100
 local frameCount=90
 
-local function setupUart()
-    uart.setup(0, 9600, 8, uart.PARITY_NONE, uart.STOPBITS_1, 0)
-    uart.alt(1)
-    uart.on("data", string.char(0x4d), readFromUart, 0)
-end
-
-local function readFromUart(data)
-    frameCount = frameCount + 1
-    if frameCount < publishNthFrame then return end
-    frameCount = 1
-
-    local len = data:len()
-    if len >= 24 then    
-        local frame = createFrame(data)
-        local decodedFrame = M.decodeFrame(frame)
-        local sensorData = {
-            raw = frame,
-            decoded = decodedFrame
-        }
-        onReadCallback(sensorData)
-    end
-end
-
-local function createFrame(data)
-    local frame = { data:byte(len-23,len-2) }
-    table.insert(frame, 1, dataTest:byte(len-1))
-    table.insert(frame, 2, dataTest:byte(len))
-    return frame
-end
-
-local function validateFrameStart(frame)
-    if frame[1] == 0x42 and frame[2] == 0x4D then return true else return false end
-end
-
 local function decode2byteValue(hByte,lByte)
     return bit.lshift(hByte, 8) + lByte 
 end
@@ -60,8 +26,49 @@ local function validateCheckSum(frame)
     return calcCheckSum == readedCheckSum
 end
 
+local function validateFrameStart(frame)
+    if frame[1] == 0x42 and frame[2] == 0x4D then return true else return false end
+end
+
+local function createFrame(data)
+    local frame = nil
+    local len = data:len()
+    log.debug("createFrame call, data len: " .. len)
+    
+    if(len >= 24) then
+        frame = { data:byte(len-23,len-2) }
+        table.insert(frame, 1, data:byte(len-1))
+        table.insert(frame, 2, data:byte(len))
+    end
+
+    return frame
+end
+
+local function readFromUart(data)
+    frameCount = frameCount + 1
+    if frameCount < publishNthFrame then return end
+    frameCount = 1
+
+    local frame = createFrame(data)
+    local decoded = M.decodeFrame(frame)
+
+    if(decoded) then
+        log.info("raw frame: " .. M.getFrameRawString(frame))
+        onReadCbk(decoded) 
+    else
+        log.error("raw frame: " .. M.getFrameRawString(frame))
+    end
+end
+
+local function setupUart()
+    uart.setup(0, 9600, 8, uart.PARITY_NONE, uart.STOPBITS_1, 0)
+    uart.alt(1)
+    uart.on("data", string.char(0x4d), readFromUart, 0)
+end
+
 function M.read(onReadCallback)
     onReadCbk = onReadCallback
+    log.debug("read call")
     setupUart()
 end
 
@@ -110,11 +117,14 @@ function M.convertToJson(decodedFrame)
 end
 
 function M.getFrameRawString(frame)
-    local frameString = ""
-    for i=1, table.getn(frame) do
-        frameString = frameString .. ("%X "):format(frame[i])
+    if(frame) then
+        local frameString = ""
+        for i=1, #frame do
+            frameString = frameString .. ("%X "):format(frame[i])
+        end
+        return frameString
     end
-    return frameString
+    return "nil"
 end
 
 return M

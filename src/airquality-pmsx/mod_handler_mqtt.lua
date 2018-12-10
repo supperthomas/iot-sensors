@@ -8,23 +8,23 @@ local connectedCbk = nil
 local disconnectedCbk = nil
 
 local function mqttConnect()
-	print("Connecting to MQTT broker " .. cfg.HOST .. ":" .. cfg.PORT .. " as " .. cfg.ID .. ":")
+	log.info("Connecting to MQTT broker " .. cfg.HOST .. ":" .. cfg.PORT .. " as " .. cfg.ID .. ":")
 	m:close()
 	conTmr:unregister()
 	
 	if(wifi.sta.status() ~= 5) then
-		print("Network connection broken, restarting...")
+		log.info("Network connection broken, restarting...")
 		node.restart()
 	end
 	
 	conTmr:alarm(20000, tmr.ALARM_SINGLE, function()
-		print("MQTT connection timeout!")
+		log.info("MQTT connection timeout!")
 		mqttConnect()
 	end)
 	
 	m:connect(cfg.HOST, cfg.PORT, 0, function(conn)
 		conTmr:unregister()
-		print("Connected to MQTT broker!")
+		log.info("Connected to MQTT broker!")
 		if connectedCbk ~= nil then connectedCbk() end
 	end)	
 end
@@ -43,13 +43,13 @@ function M.connect(mqttConfig)
 	
 	m:on("message", function(conn, topic, data) 
       if data ~= nil then
-        print(topic .. ": " .. data)
+        log.info(topic .. ": " .. data)
         -- do something, we have received a message
       end
     end)
 	
 	m:on("offline", function(conn, topic, data)
-		print("MQTT Offline!")
+		log.info("MQTT Offline!")
 		if disconnectedCbk ~= nil then disconnectedCbk() end
 		mqttConnect()
 	end)
