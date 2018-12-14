@@ -1,13 +1,13 @@
-log = require("log")
+log = require("mod_log")
 log.setLevel("info") --levels: error, info, debug
 
 log.info("\n=== airquality-pmsx ===")
 
 local config = require("config")
-local wifiHandler = require("mod_handler_wifi")
-local mqttHandler = require("mod_handler_mqtt")
-local pmsxSensor = require("mod_sensor_pmsx")
-local pmsxHandler = require("mod_handler_pmsx")
+local wifiHandler = require("mod_wifi_handler")
+local mqttHandler = require("mod_mqtt_handler")
+local pmsxSensor = require("mod_pmsx_sensor")
+local pmsxHandler = require("mod_pmsx_handler")
 
 local startTmr = tmr.create()
 

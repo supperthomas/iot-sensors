@@ -1,16 +1,15 @@
 local M = {}
 local mqttHnd = nil
-local pmsxHnd = nil
+local pmsxSen = nil
 local pubTimer = tmr.create()
 local cfg = {
-    PUBDELAY = 10000
+    ENABLED_PIN = 1,
+    PUBDELAY = 120000
 }
-
-
 
 local function publishFrames(sensorData)
     if (sensorData) then
-        mqttHnd.publish("airquality/json", pmsxHnd.convertToJson(sensorData), 0, 0)
+        mqttHnd.publish("airquality/json", pmsxSen.convertToJson(sensorData), 0, 0)
         mqttHnd.publish("airquality/env/factory/pm1", sensorData.env.factory.pm1, 0, 0)
         mqttHnd.publish("airquality/env/factory/pm2_5", sensorData.env.factory.pm2_5, 0, 0)
         mqttHnd.publish("airquality/env/factory/pm10", sensorData.env.factory.pm10, 0, 0)
@@ -29,18 +28,24 @@ local function initLogOverMqtt()
     log.info("log output redirected to mqtt")
 end
 
-function M.start(mqttHandler, pmsxHandler, sensorConfig)
+local function readAndPublish()
+    pmsxSen.stop()
+    pmsxSen.read(publishFrames, cfg.ENABLED_PIN)
+end
+
+function M.start(mqttHandler, pmsxSensor, sensorConfig)
     mqttHnd = mqttHandler
-    pmsxHnd = pmsxHandler
+    pmsxSen = pmsxSensor
     cfg = sensorConfig
     initLogOverMqtt()
-    pmsxHnd.read(publishFrames)
+    readAndPublish()
+    pubTimer:alarm(cfg.PUBDELAY, tmr.ALARM_AUTO, readAndPublish)
 end
 
 function M.stop()
     pubTimer:unregister()
-    if(pmsxHnd) then
-        pmsxHnd.stop()
+    if(pmsxSen) then
+        pmsxSen.stop()
     end
 end
 
