@@ -1,8 +1,9 @@
 local M = {}
 local mqttHnd = nil
-local pmsxHnd = nil
+local pmsxSen = nil
 local pubTimer = tmr.create()
 local cfg = {
+    ENABLED_PIN = 1,
     PUBDELAY = 10000
 }
 
@@ -29,18 +30,18 @@ local function initLogOverMqtt()
     log.info("log output redirected to mqtt")
 end
 
-function M.start(mqttHandler, pmsxHandler, sensorConfig)
+function M.start(mqttHandler, pmsxSensor, sensorConfig)
     mqttHnd = mqttHandler
-    pmsxHnd = pmsxHandler
+    pmsxSen = pmsxSensor
     cfg = sensorConfig
     initLogOverMqtt()
-    pmsxHnd.read(publishFrames)
+    pmsxSen.read(publishFrames, cfg.ENABLED_PIN)
 end
 
 function M.stop()
     pubTimer:unregister()
-    if(pmsxHnd) then
-        pmsxHnd.stop()
+    if(pmsxSen) then
+        pmsxSen.stop()
     end
 end
 

@@ -1,5 +1,6 @@
 local M = {}
 local onReadCbk = nil
+local enaPin = 1
 
 local publishNthFrame=100
 local frameCount=90
@@ -44,6 +45,19 @@ local function createFrame(data)
     return frame
 end
 
+local function startSensor()
+    log.debug("starting sensor")
+    setupUart()
+    gpio.mode(enaPin, gpio.OUTPUT)
+    gpio.write(enaPin, gpio.HIGH)
+end
+
+local function stopSensor()
+    log.debug("stopping sensor")
+    gpio.write(enaPin, gpio.LOW)
+    uart.on("data")
+end
+
 local function readFromUart(data)
     frameCount = frameCount + 1
     if frameCount < publishNthFrame then return end
@@ -54,6 +68,7 @@ local function readFromUart(data)
 
     if(decoded) then
         log.info("raw frame: " .. M.getFrameRawString(frame))
+        stopSensor()
         onReadCbk(decoded) 
     else
         log.error("raw frame: " .. M.getFrameRawString(frame))
@@ -66,14 +81,15 @@ local function setupUart()
     uart.on("data", string.char(0x4d), readFromUart, 0)
 end
 
-function M.read(onReadCallback)
+function M.read(onReadCallback, enabledPin)
     onReadCbk = onReadCallback
+    enaPin = enabledPin
     log.debug("read call")
-    setupUart()
+    startSensor()
 end
 
 function M.stop()
-    uart.on("data")
+    stopSensor
 end
 
 function M.decodeFrame(frame)
