@@ -46,14 +46,14 @@ local function createFrame(data)
 end
 
 local function stopSensor()
-    log.debug("stopping sensor")
+    log.info("stopping sensor @" .. tmr.time())
     gpio.write(enaPin, gpio.LOW)
     uart.on("data")
 end
 
 local function readFromUart(data)
     frameCount = frameCount + 1
-    log.debug("received frame no: " .. frameCount)
+    log.debug("time:" .. tmr.time() .. " received frame no: " .. frameCount)
     if frameCount < publishNthFrame then return end
     frameCount = 1
     local frame = createFrame(data)
@@ -75,7 +75,7 @@ local function setupUart()
 end
 
 local function startSensor()
-    log.debug("starting sensor")
+    log.info("starting sensor @" .. tmr.time())
     log.debug("enabled pin: " .. enaPin)
     setupUart()
     gpio.mode(enaPin, gpio.OUTPUT)
