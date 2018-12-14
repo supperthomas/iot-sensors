@@ -14,7 +14,7 @@ Scripts in each subdirectory are sef-sufficient. To make thing working:
 ## Prepare ESP8266
 Use custom [NodeMCU build](https://nodemcu-build.com).
 
-* Enable modules: adc file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
+* Enable modules: adc bit file gpio http mqtt net node ow pwm tmr uart wifi tls/ssl.
 * Flash float version of firmware. 
 
 Example of using esptool for flashing ESP8266 ESP-12 (>=4 MByte modules):
@@ -63,7 +63,7 @@ NodeMCU custom build by frightanic.com
         branch: master
         commit: c708828bbe853764b9de58fb8113a70f5a24002d
         SSL: true
-        modules: adc,file,gpio,http,mqtt,net,node,ow,pwm,tmr,uart,wifi,tls
+        modules: adc,bit,file,gpio,http,mqtt,net,node,ow,pwm,tmr,uart,wifi,tls
  build created on 2018-11-01 13:06
  powered by Lua 5.1.4 on SDK 2.2.1(6ab97e9)
 
