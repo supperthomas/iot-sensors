@@ -1,5 +1,5 @@
 log = require("log")
-log.setLevel("debug") --levels: error, info, debug
+log.setLevel("info") --levels: error, info, debug
 
 log.info("\n=== airquality-pmsx ===")
 
