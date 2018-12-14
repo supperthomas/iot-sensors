@@ -2,9 +2,9 @@
 
 Each subdirectory of **[/src](src)** represent independent feature(s):
 1. [airquality-pmsx](src/airquality-pmsx): periodically read values from Plantower PMS3003 Air Quality sensor and publish to mqtt message broker.
-1. [humidity-syhs220-mqtt](src/humidity-syhs220-mqtt): periodically read value from humidity sensor SY-HS-220 and publish it to mqtt message broker.
-2. [ping-mqtt](src/ping-mqtt): periodically publish (ping) to mqtt message broker.
-3. [temperature-ds18b20-mqtt](src/temperature-ds18b20-mqtt): periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker.
+1. [humidity-syhs220](src/humidity-syhs220): periodically read value from humidity sensor SY-HS-220 and publish it to mqtt message broker.
+2. [ping](src/ping-mqtt): periodically publish (ping) to mqtt message broker.
+3. [temperature-ds18b20](src/temperature-ds18b20): periodically read temperature from 1-Wire DS18B20 thermometer and publish to mqtt message broker.
 
 ## Setup
 Scripts in each subdirectory are sef-sufficient. To make thing working:
